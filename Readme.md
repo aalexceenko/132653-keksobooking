@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Анастасия Алексеенко](https://up.htmlacademy.ru/javascript/14/user/132653).
-* Наставник: `Неизвестно`.
+* Наставник: [Анастасия Норцова](https://up.htmlacademy.ru/javascript/14/user/143546).
 
 ---
 
