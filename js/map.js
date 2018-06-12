@@ -25,7 +25,7 @@ var infoArr = [
 var mapDelete = document.querySelector('.map');
 mapDelete.classList.remove('map--faded');
 
-var similarPointTemplate = document.querySelector('.map__card');
+var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
 var fragment = document.createDocumentFragment();
 
 var renderPoint = function (point) {
@@ -35,13 +35,18 @@ var renderPoint = function (point) {
   pointElement.querySelector('.popup__avatar').textContent = point.author;
   pointElement.querySelector('.popup__title').textContent = point.alt;
 
+  var pointList = document.querySelector('.map');
+  pointList.appendChild(fragment);
+
+  pointElement.querySelector('.popup__title').textContent = point.offer.title;
+  pointElement.querySelector('.popup__text--address').textContent = point.offer.address;
+  pointElement.querySelector('.popup__text--price').textContent = point.offer.price + '/ночь';
+
+
   return pointElement;
 };
 
 for (var i = 0; i < infoArr.length; i++) {
   fragment.appendChild(renderPoint(infoArr[i]));
 }
-
-var pointList = document.querySelector('.map');
-pointList.appendChild(fragment);
 
