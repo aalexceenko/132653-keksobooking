@@ -66,17 +66,15 @@ var renderPoint = function (point) {
 
   var photos = pointElement.querySelector('.popup__photos');
   var photo = pointElement.querySelector('.popup__photo');
+  photo.src = point.offer.photos[0];
   for (i = 0; i <= point.offer.photos.length - 2; i++) {
     var photoNew = document.createElement('img');
     photoNew.classList.add('popup__photo');
     photoNew.width = '45';
     photoNew.height = '40';
+    photoNew.alt = 'Фотография жилья';
+    photoNew.src = point.offer.photos[i + 1];
     photos.appendChild(photoNew);
-  }
-
-  photo.src = point.offer.photos[0];
-  for (i = 1; i < point.offer.photos.length; i++) {
-    photoNew.src = point.offer.photos[i];
   }
 
   return pointElement;
