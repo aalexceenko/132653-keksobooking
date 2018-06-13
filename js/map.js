@@ -18,7 +18,7 @@ var infoArr = [
       'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
     },
 
-    'location': '400, 230'
+    'location': {x: 400, y: 230}
   }
 ];
 
@@ -26,15 +26,21 @@ var mapDelete = document.querySelector('.map');
 mapDelete.classList.remove('map--faded');
 
 var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
+var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
 var fragment = document.createDocumentFragment();
 
 var renderPoint = function (point) {
   var pointElement = similarPointTemplate.cloneNode(true);
 
-  pointElement.querySelector('.popup__text--address').textContent = point.location;
-  pointElement.querySelector('.popup__avatar').textContent = point.author;
-  pointElement.querySelector('.popup__title').textContent = point.alt;
+  var pinElement = pointTemplate.cloneNode(true);
 
+  // pinElement.querySelector('.popup__text--address').textContent = point.location;
+  // pinElement.querySelector('.popup__avatar').textContent = point.author;
+  // pinElement.querySelector('.popup__title').textContent = point.alt;
+
+  pinElement.style = 'left: ' + point.location.x + 'px; top: ' + point.location.y + 'px';
+  pinElement.querySelector('img').src = point.author;
+  pinElement.querySelector('img').alt = point.alt;
 
   pointElement.querySelector('.popup__title').textContent = point.offer.title;
   pointElement.querySelector('.popup__text--address').textContent = point.offer.address;
