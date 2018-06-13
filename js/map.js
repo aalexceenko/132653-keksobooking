@@ -33,29 +33,27 @@ var createArray = function () {
   }
 
   for (var i = 0; i < 8; i++) {
-    array[i] = [
-      {
-        author: 'img/avatars/user0' + [i] + '.png',
+    array[i] = {
+      author: 'img/avatars/user0' + [i + 1] + '.png',
 
-        offer: {
-          title: titleName[i],
-          price: Math.ceil(Math.random() * 1000),
-          type: types[j],
-          rooms: Math.ceil(Math.random() * 5),
-          guests: Math.ceil(Math.random() * 5),
-          checkin: checkin[k],
-          checkout: checkout[w],
-          feature: feature[a],
-          description: '',
-          photos: photosName,
-        },
+      offer: {
+        title: titleName[i],
+        price: Math.ceil(Math.random() * 1000),
+        type: types,
+        rooms: Math.ceil(Math.random() * 5),
+        guests: Math.ceil(Math.random() * 5),
+        checkin: checkin,
+        checkout: checkout,
+        features: feature,
+        description: '',
+        photos: photosName,
+      },
 
-        location: {
-          x: (Math.random() * (900 - 300) + 300),
-          y: (Math.random() * (630 - 130) + 130)
-        }
+      location: {
+        x: (Math.random() * (900 - 300) + 300),
+        y: (Math.random() * (630 - 130) + 130)
       }
-    ];
+    };
   }
   return array;
 };
