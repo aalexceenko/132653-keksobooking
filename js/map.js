@@ -1,5 +1,7 @@
 'use strict';
 
+// var PIN_WIDTH = 50;
+// var PIN_HEIGHT = 70;
 var titleName = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var typeName = ['palace', 'flat', 'house', 'bungalo'];
 var checkinName = ['12:00', '13:00', '14:00'];
@@ -60,29 +62,6 @@ var createArray = function () {
 
 var infoArr = createArray();
 
-
-// var infoArr = [
-//   {
-//     'author': 'img/avatars/user01.png',
-
-//     'offer': {
-//       'title': 'Уютное бунгало далеко от моря',
-//       'address': '678, 567',
-//       'price': 2000,
-//       'type': 'bungalo',
-//       'rooms': 2,
-//       'guests': 2,
-//       'checkin': '14:00',
-//       'checkout': '14:00',
-//       'features': ['wifi', 'dishwasher', 'conditioner'],
-//       'description': '',
-//       'photos': ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg']
-//     },
-
-//     'location': {x: 400, y: 230}
-//   }
-// ];
-
 var mapDelete = document.querySelector('.map');
 mapDelete.classList.remove('map--faded');
 
@@ -107,6 +86,9 @@ var renderPoint = function (point) {
     pointElement.querySelector('.popup__type').textContent = 'Дворец';
   }
 
+  // if (point.offer.rooms === 1) {
+
+  // }
   pointElement.querySelector('.popup__text--capacity').textContent = point.offer.rooms + ' комнаты для ' + point.offer.guests + ' гостей';
   pointElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + point.offer.checkin + ', ' + 'выезд до ' + point.offer.checkout;
 
@@ -140,7 +122,11 @@ var renderPoint = function (point) {
 var renderPin = function (point) {
   var pinElement = pointTemplate.cloneNode(true);
 
-  pinElement.style = 'left: ' + point.location.x + 'px; top: ' + point.location.y + 'px';
+  pinElement.style.left = 'left: ' + point.location.x + 'px';
+  pinElement.style.top = 'top: ' + point.location.y + 'px';
+
+  // pinElement.style.left = 'left: ' + (point.location.x - PIN_WIDTH / 2) + 'px';
+  // pinElement.style.top = 'top: ' + (point.location.y - PIN_HEIGHT) + 'px';
   pinElement.querySelector('img').src = point.author;
   pinElement.querySelector('img').alt = point.alt;
 
