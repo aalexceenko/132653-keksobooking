@@ -238,7 +238,7 @@
     </ul>
   </footer>
 
-  <template>
+  <template id="map-card">
     <article class="map__card popup">
       <img src="img/avatars/user01.png" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
       <button type="button" class="popup__close">Закрыть</button>
@@ -258,12 +258,12 @@
       </ul>
       <p class="popup__description">Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.</p>
       <div class="popup__photos">
-        <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья">
+        <img src="" class="popup__photo" id="photo" width="45" height="40" alt="Фотография жилья">
       </div>
     </article>
 
     <button type="button" class="map__pin" style="left: 200px; top: 400px;"><img src="img/avatars/user07.png" width="40" height="40" draggable="false" alt="Метка объявления"></button>
   </template>
-
+<script src="js/map.js"></script>
 </body>
 </html>
