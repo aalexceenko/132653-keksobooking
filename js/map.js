@@ -1,7 +1,7 @@
 'use strict';
 
-// var PIN_WIDTH = 50;
-// var PIN_HEIGHT = 70;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
 var titleName = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var typeName = ['palace', 'flat', 'house', 'bungalo'];
 var checkinName = ['12:00', '13:00', '14:00'];
@@ -62,8 +62,8 @@ var createArray = function () {
 
 var infoArr = createArray();
 
-var mapDelete = document.querySelector('.map');
-mapDelete.classList.remove('map--faded');
+// var mapDelete = document.querySelector('.map');
+// mapDelete.classList.remove('map--faded');
 
 var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
 var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
@@ -86,10 +86,12 @@ var renderPoint = function (point) {
     pointElement.querySelector('.popup__type').textContent = 'Дворец';
   }
 
-  // if (point.offer.rooms === 1) {
+  if ((point.offer.rooms === 1) || (point.offer.guests === 1)) {
+    pointElement.querySelector('.popup__text--capacity').textContent = point.offer.rooms + ' комната для ' + point.offer.guests + ' гостя';
+  } else {
+    pointElement.querySelector('.popup__text--capacity').textContent = point.offer.rooms + ' комнаты для ' + point.offer.guests + ' гостей';
+  }
 
-  // }
-  pointElement.querySelector('.popup__text--capacity').textContent = point.offer.rooms + ' комнаты для ' + point.offer.guests + ' гостей';
   pointElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + point.offer.checkin + ', ' + 'выезд до ' + point.offer.checkout;
 
   for (var i = 0; i < point.offer.features.length; i++) {
@@ -122,8 +124,10 @@ var renderPoint = function (point) {
 var renderPin = function (point) {
   var pinElement = pointTemplate.cloneNode(true);
 
-  pinElement.style.left = 'left: ' + point.location.x + 'px';
-  pinElement.style.top = 'top: ' + point.location.y + 'px';
+  pinElement.style = 'left: ' + (point.location.x - PIN_WIDTH / 2) + 'px; top: ' + (point.location.y - PIN_HEIGHT) + 'px';
+
+  // pinElement.style.left = 'left: ' + point.location.x + 'px';
+  // pinElement.style.top = 'top: ' + point.location.y + 'px';
 
   // pinElement.style.left = 'left: ' + (point.location.x - PIN_WIDTH / 2) + 'px';
   // pinElement.style.top = 'top: ' + (point.location.y - PIN_HEIGHT) + 'px';
@@ -140,3 +144,33 @@ for (var i = 0; i < infoArr.length; i++) {
 
 var pointList = document.querySelector('.map');
 pointList.appendChild(fragment);
+
+// var inputAdress = document.querySelector('#address');
+// inputAdress.placeholder = '' + point.location.x + ',' + point.location.y + '';
+
+
+var pin = document.querySelector('.map__pin--main');
+
+var onPinClick = function () {
+  var mapDelete = document.querySelector('.map');
+  mapDelete.classList.remove('map--faded');
+
+  var formDelete = document.querySelector('.ad-form');
+  formDelete.classList.remove('ad-form--disabled');
+
+  var allFieldset = document.querySelectorAll('#fieldset');
+  for (i = 0; i < allFieldset.length; i++) {
+    allFieldset[i].disabled = false;
+  }
+};
+
+pin.addEventListener('mouseup', onPinClick);
+
+
+var mapCard = document.querySelector('.map__card');
+var onmapCardClick = function () {
+  mapCard.classList.remove('hidden');
+};
+
+mapCard.addEventListener('click', onmapCardClick);
+
