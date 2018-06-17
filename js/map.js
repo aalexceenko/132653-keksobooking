@@ -86,6 +86,7 @@ var renderPoint = function (point) {
     pointElement.querySelector('.popup__type').textContent = 'Дворец';
   }
 
+
   if ((point.offer.rooms === 1) || (point.offer.guests === 1)) {
     pointElement.querySelector('.popup__text--capacity').textContent = point.offer.rooms + ' комната для ' + point.offer.guests + ' гостя';
   } else {
@@ -126,11 +127,6 @@ var renderPin = function (point) {
 
   pinElement.style = 'left: ' + (point.location.x - PIN_WIDTH / 2) + 'px; top: ' + (point.location.y - PIN_HEIGHT) + 'px';
 
-  // pinElement.style.left = 'left: ' + point.location.x + 'px';
-  // pinElement.style.top = 'top: ' + point.location.y + 'px';
-
-  // pinElement.style.left = 'left: ' + (point.location.x - PIN_WIDTH / 2) + 'px';
-  // pinElement.style.top = 'top: ' + (point.location.y - PIN_HEIGHT) + 'px';
   pinElement.querySelector('img').src = point.author;
   pinElement.querySelector('img').alt = point.alt;
 
@@ -169,21 +165,51 @@ var onPinClick = function () {
   for (i = 0; i < btnPin.length; i++) {
     btnPin[i].classList.remove('hidden');
   }
-
 };
 
 pin.addEventListener('mouseup', onPinClick);
 
-
 var btnPinElement = document.querySelector('#button');
-var articleCard = document.querySelector('.map__card');
+
+var articleCard = document.querySelectorAll('.map__card');
+var articleCardElement;
+for (i = 0; i < articleCard.length; i++) {
+  articleCard[i].addEventListener('click', function (event) {
+    articleCardElement = event.target;
+  });
+}
+
 var onbtnPinElementClick = function () {
-  articleCard.classList.remove('hidden');
+  articleCardElement.classList.remove('hidden');
 };
+
 btnPinElement.addEventListener('click', onbtnPinElementClick);
 
 var btnClose = document.querySelector('.popup__close');
-btnClose.addEventListener('click', function () {
-  articleCard.classList.add('.hidden');
-});
+var onbtnCloseClick = function () {
+  articleCardElement.classList.add('hidden');
+};
 
+btnClose.addEventListener('click', onbtnCloseClick);
+
+var typeHouse = document.querySelector('#type');
+var ontypeHouseClick = function () {
+  var priceForHouse = document.querySelector('#price');
+  for (i = 0; i < typeHouse.length; i++) {
+    if (typeHouse[i].value === 'flat') {
+      priceForHouse.min = '1000';
+      priceForHouse.placeholder = '1000';
+    } else if (typeHouse[i].value === 'bungalo') {
+      priceForHouse.min = '0';
+      priceForHouse.placeholder = '0';
+    } else if (typeHouse[i].value === 'house') {
+      priceForHouse.min = '5000';
+      priceForHouse.placeholder = '5000';
+    } else if (typeHouse[i].value === 'palace') {
+      priceForHouse.min = '10000';
+      priceForHouse.placeholder = '10000';
+    }
+  }
+};
+
+typeHouse.addEventListener('click', ontypeHouseClick);
