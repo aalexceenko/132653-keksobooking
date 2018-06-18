@@ -9,6 +9,14 @@ var checkoutName = ['12:00', '13:00', '14:00'];
 var featuresName = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photosName = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
+var pointList = document.querySelector('.map');
+var pin = document.querySelector('.map__pin--main');
+
+var btnPinElement = document.querySelector('.map');
+var openedBlock;
+
+var articleCard = document.querySelector('.map');
+
 var createArray = function () {
   var array = [];
 
@@ -61,9 +69,6 @@ var createArray = function () {
 };
 
 var infoArr = createArray();
-
-// var mapDelete = document.querySelector('.map');
-// mapDelete.classList.remove('map--faded');
 
 var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
 var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
@@ -141,13 +146,7 @@ for (var i = 0; i < infoArr.length; i++) {
   fragment.appendChild(renderPin(infoArr[i]));
 }
 
-var pointList = document.querySelector('.map');
 pointList.appendChild(fragment);
-
-// var inputAdress = document.querySelector('#address');
-// inputAdress.placeholder = '' + pinElement.style.left + ',' + pinElement.style.top + '';
-
-var pin = document.querySelector('.map__pin--main');
 
 var onPinClick = function () {
   var mapDelete = document.querySelector('.map');
@@ -167,49 +166,57 @@ var onPinClick = function () {
   }
 };
 
-pin.addEventListener('mouseup', onPinClick);
-
-var btnPinElement = document.querySelector('#button');
-
-var articleCard = document.querySelectorAll('.map__card');
-var articleCardElement;
-for (i = 0; i < articleCard.length; i++) {
-  articleCard[i].addEventListener('click', function (event) {
-    articleCardElement = event.target;
-  });
-}
-
-var onbtnPinElementClick = function () {
-  articleCardElement.classList.remove('hidden');
-};
-
-btnPinElement.addEventListener('click', onbtnPinElementClick);
-
-var btnClose = document.querySelector('.popup__close');
-var onbtnCloseClick = function () {
-  articleCardElement.classList.add('hidden');
-};
-
-btnClose.addEventListener('click', onbtnCloseClick);
-
-var typeHouse = document.querySelector('#type');
-var ontypeHouseClick = function () {
-  var priceForHouse = document.querySelector('#price');
-  for (i = 0; i < typeHouse.length; i++) {
-    if (typeHouse[i].value === 'flat') {
-      priceForHouse.min = '1000';
-      priceForHouse.placeholder = '1000';
-    } else if (typeHouse[i].value === 'bungalo') {
-      priceForHouse.min = '0';
-      priceForHouse.placeholder = '0';
-    } else if (typeHouse[i].value === 'house') {
-      priceForHouse.min = '5000';
-      priceForHouse.placeholder = '5000';
-    } else if (typeHouse[i].value === 'palace') {
-      priceForHouse.min = '10000';
-      priceForHouse.placeholder = '10000';
+var onbtnPinElementClick = function (e) {
+  var button = e.target.parentElement;
+  if (button.classList.contains('map__pin')) {
+    var card = button.previousSibling;
+    if (openedBlock) {
+      openedBlock.classList.add('hidden');
     }
+    card.classList.remove('hidden');
+    openedBlock = card;
   }
 };
 
-typeHouse.addEventListener('click', ontypeHouseClick);
+var onarticleCardClick = function (e) {
+  var button = e.target;
+  if (button.classList.contains('popup__close')) {
+    var cardElement = button.parentNode;
+    cardElement.classList.add('hidden');
+  }
+};
+
+pin.addEventListener('mouseup', onPinClick);
+btnPinElement.addEventListener('click', onbtnPinElementClick);
+articleCard.addEventListener('click', onarticleCardClick);
+
+
+// var btnClose = document.querySelector('.popup__close');
+// var onbtnCloseClick = function () {
+//   openedBlock.classList.add('hidden');
+// };
+
+// btnClose.addEventListener('click', onbtnCloseClick);
+// console.log('сработало');
+
+// var typeHouse = document.querySelector('#type');
+// var ontypeHouseClick = function () {
+//   var priceForHouse = document.querySelector('#price');
+//   for (i = 0; i < typeHouse.length; i++) {
+//     if (typeHouse[i].value === 'flat') {
+//       priceForHouse.min = '1000';
+//       priceForHouse.placeholder = '1000';
+//     } else if (typeHouse[i].value === 'bungalo') {
+//       priceForHouse.min = '0';
+//       priceForHouse.placeholder = '0';
+//     } else if (typeHouse[i].value === 'house') {
+//       priceForHouse.min = '5000';
+//       priceForHouse.placeholder = '5000';
+//     } else if (typeHouse[i].value === 'palace') {
+//       priceForHouse.min = '10000';
+//       priceForHouse.placeholder = '10000';
+//     }
+//   }
+// };
+
+// typeHouse.addEventListener('click', ontypeHouseClick);
