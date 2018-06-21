@@ -245,24 +245,28 @@ var onroomChange = function () {
     guests.options[i].disabled = true;
   }
   if (room.options.selectedIndex === 0) {
+    guests.options.selectedIndex = 2;
     for (i = 0; i < guests.options.length; i++) {
       if (guests.options[i].text === 'для 1 гостя') {
         guests.options[i].disabled = false;
       }
     }
   } else if (room.options.selectedIndex === 1) {
+    guests.options.selectedIndex = 2;
     for (i = 0; i < guests.options.length; i++) {
       if ((guests.options[i].text === 'для 1 гостя') || (guests.options[i].text === 'для 2 гостей')) {
         guests.options[i].disabled = false;
       }
     }
   } else if (room.options.selectedIndex === 2) {
+    guests.options.selectedIndex = 2;
     for (i = 0; i < guests.options.length; i++) {
       if (guests.options[i].text !== 'не для гостей') {
         guests.options[i].disabled = false;
       }
     }
   } else if (room.options.selectedIndex === 3) {
+    guests.options.selectedIndex = 3;
     for (i = 0; i < guests.options.length; i++) {
       if (guests.options[i].text === 'не для гостей') {
         guests.options[i].disabled = false;
@@ -272,3 +276,40 @@ var onroomChange = function () {
 };
 
 room.addEventListener('change', onroomChange);
+
+var onguestsChange = function () {
+  for (i = 0; i < room.options.length; i++) {
+    room.options[i].disabled = true;
+  }
+  if (guests.options.selectedIndex === 0) {
+    room.options.selectedIndex = 2;
+    for (i = 0; i < room.options.length; i++) {
+      if (room.options[i].text === '3 комнаты') {
+        room.options[i].disabled = false;
+      }
+    }
+  } else if (guests.options.selectedIndex === 1) {
+    room.options.selectedIndex = 2;
+    for (i = 0; i < room.options.length; i++) {
+      if ((room.options[i].text === '2 комнаты') || (room.options[i].text === '3 комнаты')) {
+        room.options[i].disabled = false;
+      }
+    }
+  } else if (guests.options.selectedIndex === 2) {
+    room.options.selectedIndex = 2;
+    for (i = 0; i < room.options.length; i++) {
+      if (room.options[i].text !== '100 комнат') {
+        room.options[i].disabled = false;
+      }
+    }
+  } else if (guests.options.selectedIndex === 3) {
+    room.options.selectedIndex = 3;
+    for (i = 0; i < room.options.length; i++) {
+      if (room.options[i].text === 'не для гостей') {
+        room.options[i].disabled = false;
+      }
+    }
+  }
+};
+
+guests.addEventListener('change', onguestsChange);
