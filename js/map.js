@@ -191,32 +191,75 @@ btnPinElement.addEventListener('click', onbtnPinElementClick);
 articleCard.addEventListener('click', onarticleCardClick);
 
 
-// var btnClose = document.querySelector('.popup__close');
-// var onbtnCloseClick = function () {
-//   openedBlock.classList.add('hidden');
-// };
+var typeHouse = document.querySelector('#type');
+var ontypeHouseChange = function () {
+  
+  var priceForHouse = document.querySelector('#price');
 
-// btnClose.addEventListener('click', onbtnCloseClick);
-// console.log('сработало');
+  if (typeHouse.options.selectedIndex === 1) {
+    priceForHouse.min = '1000';
+    priceForHouse.placeholder = '1000';
+  } else if (typeHouse.options.selectedIndex === 0) {
+    priceForHouse.min = '0';
+    priceForHouse.placeholder = '0';
+  } else if (typeHouse.options.selectedIndex === 2) {
+    priceForHouse.min = '5000';
+    priceForHouse.placeholder = '5000';
+  } else if (typeHouse.options.selectedIndex === 3) {
+    priceForHouse.min = '10000';
+    priceForHouse.placeholder = '10000';
+  }
+};
+typeHouse.addEventListener('change', ontypeHouseChange);
 
-// var typeHouse = document.querySelector('#type');
-// var ontypeHouseClick = function () {
-//   var priceForHouse = document.querySelector('#price');
-//   for (i = 0; i < typeHouse.length; i++) {
-//     if (typeHouse[i].value === 'flat') {
-//       priceForHouse.min = '1000';
-//       priceForHouse.placeholder = '1000';
-//     } else if (typeHouse[i].value === 'bungalo') {
-//       priceForHouse.min = '0';
-//       priceForHouse.placeholder = '0';
-//     } else if (typeHouse[i].value === 'house') {
-//       priceForHouse.min = '5000';
-//       priceForHouse.placeholder = '5000';
-//     } else if (typeHouse[i].value === 'palace') {
-//       priceForHouse.min = '10000';
-//       priceForHouse.placeholder = '10000';
-//     }
-//   }
-// };
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
 
-// typeHouse.addEventListener('click', ontypeHouseClick);
+var ontimeInChange = function () {
+  if (timeIn.options.selectedIndex === 0) {
+    timeOut.options.selectedIndex = 0;
+  } else if (timeIn.options.selectedIndex === 1) {
+    timeOut.options.selectedIndex = 1;
+  } else if (timeIn.options.selectedIndex === 2) {
+    timeOut.options.selectedIndex = 2;
+  }
+};
+timeIn.addEventListener('change', ontimeInChange);
+
+var ontimeOutChange = function () {
+  if (timeOut.options.selectedIndex === 0) {
+    timeIn.options.selectedIndex = 0;
+  } else if (timeOut.options.selectedIndex === 1) {
+    timeIn.options.selectedIndex = 1;
+  } else if (timeOut.options.selectedIndex === 2) {
+    timeIn.options.selectedIndex = 2;
+  }
+};
+timeOut.addEventListener('change', ontimeOutChange);
+
+var room = document.querySelector('#room_number');
+var guests = document.querySelector('#capacity');
+
+var onroomChange = function () {
+  if (room.options.selectedIndex === 0) {
+
+    for (i = 0; i < guests.options.length; i++) {
+      if (guests.options[i].text !== 'для 1 гостя') {
+        guests.options[i].disabled = true;
+      } else {
+        guests.options[i].disabled = false;
+      }
+    }
+
+
+    // guests.options.selectedIndex = 2;
+    // guests.options.selectedIndex[0].disabled = 'disabled';
+  } else if (room.options.selectedIndex === 1) {
+    guests.options.selectedIndex = 1;
+  } else if (room.options.selectedIndex === 2) {
+    guests.options.selectedIndex = 0;
+  } else if (room.options.selectedIndex === 3) {
+    guests.options.selectedIndex = 3;
+  }
+};
+room.addEventListener('change', onroomChange);
