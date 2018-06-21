@@ -193,7 +193,7 @@ articleCard.addEventListener('click', onarticleCardClick);
 
 var typeHouse = document.querySelector('#type');
 var ontypeHouseChange = function () {
-  
+
   var priceForHouse = document.querySelector('#price');
 
   if (typeHouse.options.selectedIndex === 1) {
