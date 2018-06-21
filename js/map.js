@@ -241,25 +241,34 @@ var room = document.querySelector('#room_number');
 var guests = document.querySelector('#capacity');
 
 var onroomChange = function () {
+  for (i = 0; i < guests.options.length; i++) {
+    guests.options[i].disabled = true;
+  }
   if (room.options.selectedIndex === 0) {
-
     for (i = 0; i < guests.options.length; i++) {
-      if (guests.options[i].text !== 'для 1 гостя') {
-        guests.options[i].disabled = true;
-      } else {
+      if (guests.options[i].text === 'для 1 гостя') {
         guests.options[i].disabled = false;
       }
     }
-
-
-    // guests.options.selectedIndex = 2;
-    // guests.options.selectedIndex[0].disabled = 'disabled';
   } else if (room.options.selectedIndex === 1) {
-    guests.options.selectedIndex = 1;
+    for (i = 0; i < guests.options.length; i++) {
+      if ((guests.options[i].text === 'для 1 гостя') || (guests.options[i].text === 'для 2 гостей')) {
+        guests.options[i].disabled = false;
+      }
+    }
   } else if (room.options.selectedIndex === 2) {
-    guests.options.selectedIndex = 0;
+    for (i = 0; i < guests.options.length; i++) {
+      if (guests.options[i].text !== 'не для гостей') {
+        guests.options[i].disabled = false;
+      }
+    }
   } else if (room.options.selectedIndex === 3) {
-    guests.options.selectedIndex = 3;
+    for (i = 0; i < guests.options.length; i++) {
+      if (guests.options[i].text === 'не для гостей') {
+        guests.options[i].disabled = false;
+      }
+    }
   }
 };
+
 room.addEventListener('change', onroomChange);
