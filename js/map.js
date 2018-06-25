@@ -343,8 +343,8 @@ pinHandle.addEventListener('mousedown', function (evt) {
   var MouseUpHandler = function (upEvt) {
     upEvt.preventDefault();
 
-    document.removeEventListener('mousemove', MouseMoveHandler);
-    document.removeEventListener('mouseup', MouseUpHandler);
+    pinHandle.removeEventListener('mousemove', MouseMoveHandler);
+    pinHandle.removeEventListener('mouseup', MouseUpHandler);
   };
 
   pinHandle.addEventListener('mousemove', MouseMoveHandler);
