@@ -1,8 +1,11 @@
 'use strict';
 
+(function () {
 // рендер метки
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
+// var fragment = document.createDocumentFragment();
 
 var renderPin = function (point) {
   var pinElement = pointTemplate.cloneNode(true);
@@ -20,12 +23,12 @@ var renderPin = function (point) {
 
 
 
-for (var i = 0; i < infoArr.length; i++) {
-  fragment.appendChild(renderPoint(infoArr[i]));
-  fragment.appendChild(renderPin(infoArr[i]));
-}
-var pointList = document.querySelector('.map');
-pointList.appendChild(fragment);
+// for (var i = 0; i < infoArr.length; i++) {
+//   fragment.appendChild(renderPoint(infoArr[i]));
+//   fragment.appendChild(renderPin(infoArr[i]));
+// }
+// var pointList = document.querySelector('.map');
+// pointList.appendChild(fragment);
 
 // при клике на пин разблокируется форма
 var pin = document.querySelector('.map__pin--main');
@@ -37,14 +40,15 @@ var onPinClick = function () {
   formDelete.classList.remove('ad-form--disabled');
 
   var allFieldset = document.querySelectorAll('#fieldset');
-  for (i = 0; i < allFieldset.length; i++) {
+  for (var i = 0; i < allFieldset.length; i++) {
     allFieldset[i].disabled = false;
   }
 
   var btnPin = document.querySelectorAll('.map__pin');
-  for (i = 0; i < btnPin.length; i++) {
+  for (var i = 0; i < btnPin.length; i++) {
     btnPin[i].classList.remove('hidden');
   }
 };
 
 pin.addEventListener('mouseup', onPinClick);
+})();

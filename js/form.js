@@ -1,5 +1,5 @@
 'use strict';
-
+(function () {
 // изменение значений формы
 var typeHouse = document.querySelector('#type');
 var ontypeHouseChange = function () {
@@ -123,3 +123,4 @@ var onguestsChange = function () {
 };
 
 guests.addEventListener('change', onguestsChange);
+})();

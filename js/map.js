@@ -1,4 +1,5 @@
 'use strict';
+(function () {
 
 // var PIN_WIDTH = 50;
 // var PIN_HEIGHT = 70;
@@ -353,40 +354,40 @@
 
 
 // передвижение метки
-var pinHandle = document.querySelector('.map__pin--main');
-pinHandle.addEventListener('mousedown', function (evt) {
-  evt.preventDefault();
+  var pinHandle = document.querySelector('.map__pin--main');
+  pinHandle.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
 
-  var startCordinate = {
-    x: evt.clientX,
-    y: evt.clientY
-  };
-
-  var MouseMoveHandler = function (moveEvt) {
-    moveEvt.preventDefault();
-
-    var shift = {
-      x: startCordinate.x - moveEvt.clientX,
-      y: startCordinate.y - moveEvt.clientY
+    var startCordinate = {
+      x: evt.clientX,
+      y: evt.clientY
     };
 
-    startCordinate = {
-      x: moveEvt.clientX,
-      y: moveEvt.clientY
+    var MouseMoveHandler = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      var shift = {
+        x: startCordinate.x - moveEvt.clientX,
+        y: startCordinate.y - moveEvt.clientY
+      };
+
+      startCordinate = {
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
+      };
+
+      pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
+      pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
     };
 
-    pinHandle.style.top = (pinHandle.offsetTop - shift.y) + 'px';
-    pinHandle.style.left = (pinHandle.offsetLeft - shift.x) + 'px';
-  };
+    var MouseUpHandler = function (upEvt) {
+      upEvt.preventDefault();
 
-  var MouseUpHandler = function (upEvt) {
-    upEvt.preventDefault();
+      pinHandle.removeEventListener('mousemove', MouseMoveHandler);
+      pinHandle.removeEventListener('mouseup', MouseUpHandler);
+    };
 
-    pinHandle.removeEventListener('mousemove', MouseMoveHandler);
-    pinHandle.removeEventListener('mouseup', MouseUpHandler);
-  };
-
-  pinHandle.addEventListener('mousemove', MouseMoveHandler);
-  pinHandle.addEventListener('mouseup', MouseUpHandler);
-});
-
+    pinHandle.addEventListener('mousemove', MouseMoveHandler);
+    pinHandle.addEventListener('mouseup', MouseUpHandler);
+  });
+})();

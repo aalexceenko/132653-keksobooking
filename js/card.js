@@ -1,10 +1,12 @@
 'use strict';
-
 // создаем карточки
-var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
-var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
-var fragment = document.createDocumentFragment();
-var renderPoint = function (point) {
+
+(function () {
+  var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
+//   var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
+  var fragment = document.createDocumentFragment();
+
+  var renderPoint = function (point) {
   var pointElement = similarPointTemplate.cloneNode(true);
 
   pointElement.querySelector('.popup__title').textContent = point.offer.title;
@@ -39,46 +41,54 @@ var renderPoint = function (point) {
     features.appendChild(feature);
   }
 
-  pointElement.querySelector('.popup__description').textContent = point.offer.description;
+    pointElement.querySelector('.popup__description').textContent = point.offer.description;
 
-  var photos = pointElement.querySelector('.popup__photos');
-  var photo = pointElement.querySelector('.popup__photo');
-  photo.src = point.offer.photos[0];
-  for (i = 0; i <= point.offer.photos.length - 2; i++) {
-    var photoNew = document.createElement('img');
-    photoNew.classList.add('popup__photo');
-    photoNew.width = '45';
-    photoNew.height = '40';
-    photoNew.alt = 'Фотография жилья';
-    photoNew.src = point.offer.photos[i + 1];
-    photos.appendChild(photoNew);
-  }
-
-  return pointElement;
-};
-  
-// открытие и зактрытие карточки
-var openedBlock;
-var btnPinElement = document.querySelector('.map');
-var onbtnPinElementClick = function (e) {
-  var button = e.target.parentElement;
-  if (button.classList.contains('map__pin')) {
-    var card = button.previousSibling;
-    if (openedBlock) {
-      openedBlock.classList.add('hidden');
+    var photos = pointElement.querySelector('.popup__photos');
+    var photo = pointElement.querySelector('.popup__photo');
+    photo.src = point.offer.photos[0];
+    for (i = 0; i <= point.offer.photos.length - 2; i++) {
+        var photoNew = document.createElement('img');
+        photoNew.classList.add('popup__photo');
+        photoNew.width = '45';
+        photoNew.height = '40';
+        photoNew.alt = 'Фотография жилья';
+        photoNew.src = point.offer.photos[i + 1];
+        photos.appendChild(photoNew);
     }
-    card.classList.remove('hidden');
-    openedBlock = card;
-  }
-};
-var articleCard = document.querySelector('.map');
-var onarticleCardClick = function (e) {
-  var button = e.target;
-  if (button.classList.contains('popup__close')) {
-    var cardElement = button.parentNode;
-    cardElement.classList.add('hidden');
-  }
-};
 
-btnPinElement.addEventListener('click', onbtnPinElementClick);
-articleCard.addEventListener('click', onarticleCardClick);
+    return pointElement;
+    };
+
+    for (var i = 0; i < window.infoArr.length; i++) {
+        fragment.appendChild(renderPoint(window.infoArr[i]));
+        fragment.appendChild(renderPin(window.infoArr[i]));
+      }
+      var pointList = document.querySelector('.map');
+      pointList.appendChild(fragment);
+
+    // открытие и зактрытие карточки
+    var openedBlock;
+    var btnPinElement = document.querySelector('.map');
+    var onbtnPinElementClick = function (e) {
+    var button = e.target.parentElement;
+    if (button.classList.contains('map__pin')) {
+        var card = button.previousSibling;
+        if (openedBlock) {
+        openedBlock.classList.add('hidden');
+        }
+        card.classList.remove('hidden');
+        openedBlock = card;
+    }
+    };
+    var articleCard = document.querySelector('.map');
+    var onarticleCardClick = function (e) {
+    var button = e.target;
+    if (button.classList.contains('popup__close')) {
+        var cardElement = button.parentNode;
+        cardElement.classList.add('hidden');
+    }
+    };
+
+    btnPinElement.addEventListener('click', onbtnPinElementClick);
+    articleCard.addEventListener('click', onarticleCardClick);
+})();
