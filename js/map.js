@@ -32,12 +32,12 @@
     var MouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
 
-      pinHandle.removeEventListener('mousemove', MouseMoveHandler);
-      pinHandle.removeEventListener('mouseup', MouseUpHandler);
+      document.removeEventListener('mousemove', MouseMoveHandler);
+      document.removeEventListener('mouseup', MouseUpHandler);
     };
 
-    pinHandle.addEventListener('mousemove', MouseMoveHandler);
-    pinHandle.addEventListener('mouseup', MouseUpHandler);
+    document.addEventListener('mousemove', MouseMoveHandler);
+    document.addEventListener('mouseup', MouseUpHandler);
   });
 })();
 

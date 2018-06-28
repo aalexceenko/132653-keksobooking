@@ -4,7 +4,7 @@
 (function () {
   var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
 
-  var fragment = document.createDocumentFragment();
+
 
   var renderPoint = function (point) {
     var pointElement = similarPointTemplate.cloneNode(true);
@@ -59,12 +59,23 @@
     return pointElement;
   };
 
-  for (var i = 0; i < window.infoArr.length; i++) {
-    fragment.appendChild(renderPoint(window.infoArr[i]));
-    fragment.appendChild(window.renderPin(window.infoArr[i]));
-  }
-  var pointList = document.querySelector('.map');
-  pointList.appendChild(fragment);
+  // for (var i = 0; i < window.infoArr.length; i++) {
+  //   fragment.appendChild(renderPoint(window.infoArr[i]));
+  //   fragment.appendChild(window.renderPin(window.infoArr[i]));
+  // }
+  // var pointList = document.querySelector('.map');
+  // pointList.appendChild(fragment);
+  
+  window.load(function(card) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < window.infoArr.length; i++) {
+      fragment.appendChild(renderPoint(window.infoArr[i]));
+      fragment.appendChild(window.renderPin(window.infoArr[i]));
+    }
+    var pointList = document.querySelector('.map');
+    pointList.appendChild(fragment);
+  });
+
 
   // открытие и зактрытие карточки
   var openedBlock;
