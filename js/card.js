@@ -4,8 +4,6 @@
 (function () {
   var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
 
-
-
   var renderPoint = function (point) {
     var pointElement = similarPointTemplate.cloneNode(true);
 
@@ -65,8 +63,8 @@
   // }
   // var pointList = document.querySelector('.map');
   // pointList.appendChild(fragment);
-  
-  window.load(function(card) {
+
+  window.load(function (card) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.infoArr.length; i++) {
       fragment.appendChild(renderPoint(window.infoArr[i]));
