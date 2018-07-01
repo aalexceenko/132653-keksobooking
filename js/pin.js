@@ -7,12 +7,13 @@
   var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
 
   window.renderPin = function (point) {
+
     var pinElement = pointTemplate.cloneNode(true);
 
     pinElement.style = 'left: ' + (point.location.x - PIN_WIDTH / 2) + 'px; top: ' + (point.location.y - PIN_HEIGHT) + 'px';
 
-    pinElement.querySelector('img').src = point.author;
-    pinElement.querySelector('img').alt = point.alt;
+    pinElement.querySelector('img').src = point.author.avatar;
+    pinElement.querySelector('img').alt = point.offer.title;
 
     var inputAdress = document.querySelector('#address');
     inputAdress.placeholder = '' + Math.floor(point.location.x - PIN_WIDTH / 2) + ', ' + Math.floor(point.location.y - PIN_HEIGHT) + '';

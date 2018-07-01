@@ -54,21 +54,17 @@
       photos.appendChild(photoNew);
     }
 
+    pointElement.querySelector('.popup__avatar').src = point.author.avatar;
+
     return pointElement;
   };
 
-  // for (var i = 0; i < window.infoArr.length; i++) {
-  //   fragment.appendChild(renderPoint(window.infoArr[i]));
-  //   fragment.appendChild(window.renderPin(window.infoArr[i]));
-  // }
-  // var pointList = document.querySelector('.map');
-  // pointList.appendChild(fragment);
 
-  window.load(function (card) {
+  window.load(function (cards) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.infoArr.length; i++) {
-      fragment.appendChild(renderPoint(window.infoArr[i]));
-      fragment.appendChild(window.renderPin(window.infoArr[i]));
+    for (var i = 0; i < cards.length; i++) {
+      fragment.appendChild(renderPoint(cards[i]));
+      fragment.appendChild(window.renderPin(cards[i]));
     }
     var pointList = document.querySelector('.map');
     pointList.appendChild(fragment);
