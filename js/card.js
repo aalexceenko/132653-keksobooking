@@ -60,15 +60,41 @@
   };
 
 
-  window.load(function (cards) {
+  var successHandler = function (cards) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < cards.length; i++) {
+    for (var i = 0; i < 5; i++) {
+
+      cards.sort(function () {
+        return Math.random()
+      });
+
+      var sameTypeHouse = cards.filter(function(it) {
+        return it.typeHouse === window.typeHouse;
+      });
+
+      window.render(sameTypeHouse.concat(sameTypeHouse));
+
+
       fragment.appendChild(renderPoint(cards[i]));
       fragment.appendChild(window.renderPin(cards[i]));
     }
     var pointList = document.querySelector('.map');
     pointList.appendChild(fragment);
-  });
+  };
+
+  var errorHandler = function(error) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+    
+    node.textContent = errorMessage; 
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.load(successHandler, errorHandler);
 
 
   // открытие и зактрытие карточки
