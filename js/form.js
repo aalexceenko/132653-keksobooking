@@ -123,4 +123,12 @@
   };
 
   guests.addEventListener('change', onguestsChange);
+
+  // var form = document.querySelector('.ad-form');
+  // form.addEventListener('submit', function (evt) {
+  //   window.upload(new FormData(form), function (response) {
+  //     form.value = '';
+  //   });
+  //   evt.preventDefault();
+  // });
 })();
