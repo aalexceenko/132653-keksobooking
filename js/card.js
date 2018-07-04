@@ -73,29 +73,13 @@
     var sortedCards = cards.sort(function () {
       return Math.random()
     });
-  // var cuttedCards = [];
+
   for (var i = 0; i < 5; i++) {
       // cuttedCards[i] = sortedCards[i];
       fragment.appendChild(window.renderPin(sortedCards[i]));
+      fragment.appendChild(renderCard(sortedCards[i]));
   }
-  fragment.appendChild(renderCard(cards[i]));
-  // console.log(cuttedCards);
-  // fragment.appendChild(window.renderPin(cuttedCards[i]));
 
-    // for (var i = 0; i < 5; i++) {
-
-    //   cards.sort(function () {
-    //     return Math.random()
-    //   });
-
-
-    //   fragment.appendChild(renderPoint(cards[i]));
-    //   fragment.appendChild(window.renderPin(cards[i]));
-
-
-    //   cards = data;
-    //   // updateCards();
-    // }
     var pointList = document.querySelector('.map');
     pointList.appendChild(fragment);
   };
@@ -121,7 +105,8 @@
   var onbtnPinElementClick = function (e) {
     var button = e.target.parentElement;
     if (button.classList.contains('map__pin')) {
-      var card = button.previousSibling;
+      // var card = button.previousSibling;
+      var card = button.closest('.map__card');
       if (openedBlock) {
         openedBlock.classList.add('hidden');
       }
