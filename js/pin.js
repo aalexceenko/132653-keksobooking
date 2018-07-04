@@ -7,7 +7,7 @@
   var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
 
   window.renderPin = function (point) {
-    console.log(point);
+
     var pinElement = pointTemplate.cloneNode(true);
 
     pinElement.style = 'left: ' + (point.location.x - PIN_WIDTH / 2) + 'px; top: ' + (point.location.y - PIN_HEIGHT) + 'px';
