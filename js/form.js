@@ -131,4 +131,23 @@
   //   });
   //   evt.preventDefault();
   // });
+
+  var adFormContainerElement = document.querySelector('.ad-form');
+  function resetForm() {
+    adFormContainerElement.reset();
+  }
+
+  // function showSuccessMessage() {
+  //   window.successMessageElement.classList.remove('hidden');
+  // }
+
+  function onFormSubmit(evt) {
+    evt.preventDefault();
+    var formData = new FormData(adFormContainerElement);
+    window.upload(formData, resetForm, window.onError);
+    // showSuccessMessage();
+  }
+
+  adFormContainerElement.addEventListener('submit', onFormSubmit);
+
 })();
