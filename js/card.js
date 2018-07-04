@@ -4,7 +4,7 @@
 (function () {
   var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
 
-  var renderPoint = function (point) {
+  var renderCard = function (point) {
     var pointElement = similarPointTemplate.cloneNode(true);
 
     pointElement.querySelector('.popup__title').textContent = point.offer.title;
@@ -56,28 +56,46 @@
 
     pointElement.querySelector('.popup__avatar').src = point.author.avatar;
 
+    // var cards = [];
+    // var sameTypeHouse = cards.filter(function(it) {
+    //   return it.typeHouse === window.typeHouse;
+    // });
+
+    // window.render(sameTypeHouse.concat(sameTypeHouse));
+
     return pointElement;
   };
 
 
   var successHandler = function (cards) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 5; i++) {
 
-      cards.sort(function () {
-        return Math.random()
-      });
+    var sortedCards = cards.sort(function () {
+      return Math.random()
+    });
+  // var cuttedCards = [];
+  for (var i = 0; i < 5; i++) {
+      // cuttedCards[i] = sortedCards[i];
+      fragment.appendChild(window.renderPin(sortedCards[i]));
+  }
+  fragment.appendChild(renderCard(cards[i]));
+  // console.log(cuttedCards);
+  // fragment.appendChild(window.renderPin(cuttedCards[i]));
 
-      var sameTypeHouse = cards.filter(function(it) {
-        return it.typeHouse === window.typeHouse;
-      });
+    // for (var i = 0; i < 5; i++) {
 
-      window.render(sameTypeHouse.concat(sameTypeHouse));
+    //   cards.sort(function () {
+    //     return Math.random()
+    //   });
 
 
-      fragment.appendChild(renderPoint(cards[i]));
-      fragment.appendChild(window.renderPin(cards[i]));
-    }
+    //   fragment.appendChild(renderPoint(cards[i]));
+    //   fragment.appendChild(window.renderPin(cards[i]));
+
+
+    //   cards = data;
+    //   // updateCards();
+    // }
     var pointList = document.querySelector('.map');
     pointList.appendChild(fragment);
   };
@@ -90,7 +108,7 @@
     node.style.right = 0;
     node.style.fontSize = '30px';
     
-    node.textContent = errorMessage; 
+    node.textContent = window.errorMessage; 
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
