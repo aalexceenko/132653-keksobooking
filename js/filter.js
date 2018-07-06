@@ -15,7 +15,9 @@
   var MAX_FILTER_PRICE = 50000;
 
   var newPins = [];
-  var mapFilter = document.querySelector('.map__filter');
+  var mapFilters = document.querySelector('.map__filters');
+  var pinsContainer = document.querySelector('.map__pins');
+  console.log('point' + window.point);
 
   function filterHouseType(point) {
     var typeHouseElement = document.querySelector('#housing-type');
@@ -23,70 +25,84 @@
       case 'any':
         return point;
       default:
-        return point.offer.type;
+        return point.offer.type === typeHouseElement.value;
     }
-  };
+  }
 
-  function filterPrice (point) {
+  function filterPrice(point) {
     var priceElement = document.querySelector('#housing-price');
     switch (priceElement.value) {
       case 'any':
         return point;
       case 'low':
-        return point.offer.price <= MIN_FILTER_PRICE;
+        return point.offer.price < MIN_FILTER_PRICE;
       case 'middle':
-        return (point.offer.price >= MIN_FILTER_PRICE) && (point.offer.price >= MAX_FILTER_PRICE);
-      case 'hight':
-        return point.offer.price <= MAX_FILTER_PRICE;
+        return (point.offer.price >= MIN_FILTER_PRICE) && (point.offer.price <= MAX_FILTER_PRICE);
+      case 'high':
+        return point.offer.price > MAX_FILTER_PRICE;
       default:
-        return point.offer.price = priceElement.value;
+        return point.offer.price === priceElement.value;
     }
-  };
-
-  function filterRooms (point) {
-    var roomsElement = document.querySelector('#housing-rooms');
+  }
+  var roomsElement = document.querySelector('#housing-rooms');
+  function filterRooms(point) {
+    // var roomsElement = document.querySelector('#housing-rooms');
     switch (roomsElement.value) {
       case 'any':
         return point;
       default:
-        return point.offer.rooms = parseInt(roomsElement.value, 10);
+        return point.offer.rooms === parseInt(roomsElement.value, 10);
     }
-  };
+  }
 
-  function filterGuests (point) {
+  function filterGuests(point) {
     var guestsElement = document.querySelector('#housing-guests');
     switch (guestsElement.value) {
       case 'any':
         return point;
       default:
-        return point.offer.guests = parseInt(roomsElement.value, 10);
+        return point.offer.guests === parseInt(guestsElement.value, 10);
     }
-  };
+  }
 
-  function filterFeatures (point) {
+  function filterFeatures(point) {
     var featuresElement = document.querySelector('#housing-features');
     for (var i = 0; i < featuresElement.length; i++) {
-      if (featuresElement[i].checked && point.offer.features.indexOf(featuresElement[i].value) < 0) {
+      if (featuresElement[i].checked && (point.offer.features.indexOf(featuresElement[i].value) < 0)) {
         return false;
       }
     }
     return true;
-  };
+  }
 
-  function deletePin () {
-    var pin = document.querySelectorAll('.map__pin');
+  function deletePin() {
+    var pins = document.querySelectorAll('.map__pin');
+    var cards = document.querySelectorAll('.map__card');
 
-    for (i = 0; i < pin.length; i++) {
-      document.removeChild(pin[i]);
+    for (var i = 1; i < pins.length; i++) {
+      pinsContainer.removeChild(cards[i - 1]);
+      pinsContainer.removeChild(pins[i]);
     }
-  };
+  }
 
   function filterPin() {
+    var fragment = document.createDocumentFragment();
     newPins = window.sortedCards;
-    var filteredPins = newPins.filter(filterHouseType).filter(filterPrice).filter(filterRooms).filter(filterGuests).filter(filterFeatures);
+    var filteredPins = newPins.filter(filterHouseType);
+    filteredPins = filteredPins.filter(filterPrice);
+    filteredPins = filteredPins.filter(filterRooms).filter(filterGuests).filter(filterFeatures);
 
     deletePin();
-    window.renderPin(filteredPins);
+    var length = 5;
+    if (filteredPins.length < 5) {
+      length = filteredPins.length;
+    }
+    for (var i = 0; i < length; i++) {
+      fragment.appendChild(window.renderCard(filteredPins[i]));
+      fragment.appendChild(window.renderPin(filteredPins[i], true));
+    }
+
+    pinsContainer.appendChild(fragment);
 
   }
 
@@ -95,8 +111,7 @@
   };
 
 
-
-  mapFilter.addEventListener('change', onFilterChange);
+  mapFilters.addEventListener('change', onFilterChange);
 
 
 })();

@@ -6,7 +6,7 @@
   var PIN_HEIGHT = 70;
   var pointTemplate = document.querySelector('#map-card').content.querySelector('.map__pin');
 
-  window.renderPin = function (point) {
+  window.renderPin = function (point, removeHidden) {
 
     var pinElement = pointTemplate.cloneNode(true);
 
@@ -18,6 +18,9 @@
     var inputAdress = document.querySelector('#address');
     inputAdress.placeholder = '' + Math.floor(point.location.x - PIN_WIDTH / 2) + ', ' + Math.floor(point.location.y - PIN_HEIGHT) + '';
 
+    if (removeHidden) {
+      pinElement.classList.remove('hidden');
+    }
     return pinElement;
   };
 

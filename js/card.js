@@ -4,7 +4,7 @@
 (function () {
   var similarPointTemplate = document.querySelector('#map-card').content.querySelector('.map__card');
 
-  var renderCard = function (point) {
+  window.renderCard = function (point) {
     var pointElement = similarPointTemplate.cloneNode(true);
 
     pointElement.querySelector('.popup__title').textContent = point.offer.title;
@@ -70,29 +70,28 @@
   var successHandler = function (cards) {
     var fragment = document.createDocumentFragment();
 
-    var sortedCards = cards.sort(function () {
-      return Math.random()
+    window.sortedCards = cards.sort(function () {
+      return Math.random();
     });
 
-  for (var i = 0; i < 5; i++) {
-      // cuttedCards[i] = sortedCards[i];
-      fragment.appendChild(renderCard(sortedCards[i]));
-      fragment.appendChild(window.renderPin(sortedCards[i]));
-  }
+    for (var i = 0; i < 5; i++) {
+      fragment.appendChild(window.renderCard(window.sortedCards[i]));
+      fragment.appendChild(window.renderPin(window.sortedCards[i]));
+    }
 
-    var pointList = document.querySelector('.map');
+    var pointList = document.querySelector('.map__pins');
     pointList.appendChild(fragment);
   };
 
-  var errorHandler = function(error) {
+  var errorHandler = function (error) {
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
     node.style.position = 'absolute';
     node.style.left = 0;
     node.style.right = 0;
     node.style.fontSize = '30px';
-    
-    node.textContent = window.errorMessage; 
+
+    node.textContent = window.errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
@@ -104,23 +103,18 @@
   var btnPinElement = document.querySelector('.map');
 
   var openedCard;
-
   var onbtnPinElementClick = function (e) {
- 
-  var button = e.target.closest('.map__pin');
-  openedCard = button.previousSibling;
-  console.log(openedCard);
-
-  // if (openedCard) {
-  //   if (openedCard.classList) {
-  //     openedCard.classList.add('hidden');
-  //   }
-  // }
-  if (openedCard.classList) {
-    openedCard.classList.remove('hidden');
-  }
-
-    
+    var button = e.target.closest('.map__pin');
+    var card = button.previousSibling;
+    if (card.classList) {
+      card.classList.remove('hidden');
+      if (openedCard) {
+        openedCard.classList.add('hidden');
+      }
+      if (card.classList.contains('map__card')) {
+        openedCard = card;
+      }
+    }
   };
 
 
@@ -133,6 +127,7 @@
     }
   };
 
-  btnPinElement.addEventListener('click', onbtnPinElementClick);
+  var pinsContainer = document.querySelector('.map__pins');
+  pinsContainer.addEventListener('click', onbtnPinElementClick);
   articleCard.addEventListener('click', onarticleCardClick);
 })();
