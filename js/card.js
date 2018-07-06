@@ -91,7 +91,7 @@
     node.style.right = 0;
     node.style.fontSize = '30px';
 
-    node.textContent = window.errorMessage;
+    node.textContent = error;
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
@@ -99,8 +99,8 @@
 
 
   // открытие и зактрытие карточки
-  // var openedBlock;
-  var btnPinElement = document.querySelector('.map');
+
+  // var btnPinElement = document.querySelector('.map');
 
   var openedCard;
   var onbtnPinElementClick = function (e) {

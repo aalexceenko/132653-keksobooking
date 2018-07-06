@@ -17,7 +17,6 @@
   var newPins = [];
   var mapFilters = document.querySelector('.map__filters');
   var pinsContainer = document.querySelector('.map__pins');
-  console.log('point' + window.point);
 
   function filterHouseType(point) {
     var typeHouseElement = document.querySelector('#housing-type');
@@ -66,13 +65,14 @@
   }
 
   function filterFeatures(point) {
-    var featuresElement = document.querySelector('#housing-features');
+    var featuresElement = document.querySelectorAll('#housing-features .map__checkbox');
     for (var i = 0; i < featuresElement.length; i++) {
       if (featuresElement[i].checked && (point.offer.features.indexOf(featuresElement[i].value) < 0)) {
         return false;
       }
     }
     return true;
+    // return point.offer.features === featuresElement.value;
   }
 
   function deletePin() {
@@ -90,7 +90,7 @@
     newPins = window.sortedCards;
     var filteredPins = newPins.filter(filterHouseType);
     filteredPins = filteredPins.filter(filterPrice);
-    filteredPins = filteredPins.filter(filterRooms).filter(filterGuests).filter(filterFeatures);
+    filteredPins = filteredPins.filter(filterHouseType).filter(filterRooms).filter(filterGuests).filter(filterFeatures);
 
     deletePin();
     var length = 5;
